@@ -21,15 +21,13 @@
    ```bash
    docker compose exec app php cron/fetch_rss.php
    ```
-4. Применение схемы БД происходит автоматически на старте `app`/`cron` (файл `db/schema.sql`).
-5. Конфигурация `config.php` генерируется на старте контейнера из переменных окружения (`.env`). 
-6. Ключевые переменные:
+4. Ключевые переменные:
    - `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`
    - `MEMCACHED_HOST`, `MEMCACHED_PORT`
    - `APP_BASE_URL`, `APP_TIMEZONE`, `ITEMS_PER_PAGE`
    - `FEED_URL` — URL RSS-ленты
 
-7. Остановка и удаление контейнеров:
+5. Остановка и удаление контейнеров:
    ```bash
    docker compose down
    ```
