@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS categories (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(512) NOT NULL,
+    slug VARCHAR(191) NOT NULL,
+    UNIQUE KEY uniq_slug (slug),
+    UNIQUE KEY uniq_name (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS news (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    guid VARCHAR(255) NOT NULL,
+    title VARCHAR(512) NOT NULL,
+    link VARCHAR(512) NOT NULL,
+    description MEDIUMTEXT NULL,
+    content MEDIUMTEXT NULL,
+    image_url VARCHAR(512) NULL,
+    pub_date DATETIME NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_guid (guid),
+    KEY idx_pub_date (pub_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS news_categories (
+    news_id BIGINT UNSIGNED NOT NULL,
+    category_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (news_id, category_id),
+    CONSTRAINT fk_nc_news FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE,
+    CONSTRAINT fk_nc_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
