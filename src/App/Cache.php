@@ -10,7 +10,7 @@ class Cache
     {
         $this->mc = $mc ?: Bootstrap::cache();
         $cfg = Bootstrap::config()['memcached'];
-        $this->prefix = $prefix ?: (isset($cfg['prefix']) ? $cfg['prefix'] : 'app:');
+        $this->prefix = $prefix ?: ($cfg['prefix'] ?? 'app:');
     }
 
     private function nsKey(): string
